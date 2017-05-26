@@ -1,5 +1,8 @@
 # EEA jupyter notebook for data science in python
-# docker run -it -e NB_UID=1001 --user root --rm -v /home/marinis/jupyterdata:/home/jovyan/work:z -p 8888:8888 jupyter/datascience-notebook
+# Example docker-compose file
+# to secure the Notebook server with a custom password hashed using 
+# IPython.lib.passwd() instead of the default token and add it in
+# the command --NotebookApp.password=
 
 notebook:
   environment:
@@ -8,10 +11,10 @@ notebook:
   - "8800:8888"
   user: root
   volumes:
-  - /home/marinis/jupyterdata:/home/jovyan/work:z
+  - /path/to/jupyterdata:/home/jovyan/work:z
   labels:
     io.rancher.scheduler.affinity:host_label: datascience-demarant=yes
     io.rancher.container.hostname_override: container_name
   image: eeacms/notebook:latest
-  command: start-notebook.sh --NotebookApp.password='sha1:6ce2f48ab2cf:c29f20b31b4d3bddc95ba334e3c790650747bf58'
+  command: start-notebook.sh --NotebookApp.password='sha1:your_hashed_password'
   
